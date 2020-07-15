@@ -5,11 +5,23 @@
   <p>No Companies Found</p>
   <% else %>
     <ul class="list-group my-5">
+      <table>
+        <thead></thead>
+        <tbody>
       <% @companies.each do |company| %>
+        <tr>
+          <td>
         <a href="<%= company_path(company) %>" class="list-group-item list-group-item-action">
           <%= company.name %>
         </a>
+      </td>
+      <td>
+        <%= link_to 'Destroy', company , method: :delete, data: { confirm: 'Are you sure?' },  class: "list-group-item list-group-item-action" %>
+      </td>
+        </tr>
       <% end %>
+      </tbody>
+    </table>
     </ul>
   <% end %>
 </div>

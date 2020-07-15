@@ -17,6 +17,7 @@ class CompaniesController < ApplicationController
     if @company.save
       redirect_to companies_path, notice: "Saved"
     else
+      flash.now[:alert] = @company.errors.full_messages.first
       render :new
     end
   end
@@ -32,10 +33,18 @@ class CompaniesController < ApplicationController
     end
   end  
 
+  def destroy
+    if @company.destroy
+       redirect_to companies_path, notice: 'Company was successfully destroyed.'
+    else
+       redirect_to companies_path, notice: 'Not destroyed'
+    end
+  end
+
   private
 
   def company_params
-    params.require(:company).permit(
+    company_params = params.require(:company).permit(
       :name,
       :legal_name,
       :description,
@@ -43,6 +52,9 @@ class CompaniesController < ApplicationController
       :phone,
       :email,
       :owner_id,
+      :city,
+      :state,
+      :state_code,
     )
   end
 
